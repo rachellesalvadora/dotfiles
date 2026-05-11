@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+STAMP="$(date +%Y%m%d%H%M%S)"
+
+backup_and_link() {
+  local source="$1"
+  local target="$2"
+
+  mkdir -p "$(dirname "$target")"
+
+  if [ -L "$target" ]; then
+    rm "$target"
+  elif [ -e "$target" ]; then
+    mv "$target" "$target.backup.$STAMP"
+  fi
+
+  ln -s "$source" "$target"
+}
+
+if command -v brew >/dev/null 2>&1; then
+  brew bundle --file="$ROOT/Brewfile"
+else
+  echo "Homebrew is not installed. Install it, then re-run script/setup." >&2
+fi
+
+backup_and_link "$ROOT/shell/.zshrc" "$HOME/.zshrc"
+backup_and_link "$ROOT/shell/aliases.zsh" "$HOME/.aliases.zsh"
+backup_and_link "$ROOT/git/.gitconfig" "$HOME/.gitconfig"
+
+mkdir -p "$HOME/.claude"
+backup_and_link "$ROOT/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+
+echo "Dotfiles installed."
+

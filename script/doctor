@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -u
+
+failures=0
+
+check() {
+  local label="$1"
+  shift
+
+  if "$@" >/dev/null 2>&1; then
+    printf 'ok   %s\n' "$label"
+  else
+    printf 'fail %s\n' "$label"
+    failures=$((failures + 1))
+  fi
+}
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+check "Homebrew" command -v brew
+check "git" command -v git
+check "GitHub CLI" command -v gh
+check "node" command -v node
+check "ripgrep" command -v rg
+check "uv" command -v uv
+check "zsh" command -v zsh
+
+check "zsh config linked" test -L "$HOME/.zshrc"
+check "aliases linked" test -L "$HOME/.aliases.zsh"
+check "git config linked" test -L "$HOME/.gitconfig"
+check "Claude instructions linked" test -L "$HOME/.claude/CLAUDE.md"
+
+if command -v gh >/dev/null 2>&1; then
+  check "GitHub auth" gh auth status
+fi
+
+if command -v brew >/dev/null 2>&1; then
+  check "Brewfile satisfied" brew bundle check --file="$ROOT/Brewfile"
+fi
+
+if [ "$failures" -gt 0 ]; then
+  printf '\n%d check(s) failed.\n' "$failures"
+  exit 1
+fi
+
+printf '\nAll checks passed.\n'
+

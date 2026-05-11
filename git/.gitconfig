@@ -1,0 +1,12 @@
+[init]
+	defaultBranch = main
+
+[pull]
+	ff = only
+
+[push]
+	default = simple
+
+[include]
+	path = ~/.gitconfig.local
+
