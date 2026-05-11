@@ -53,5 +53,4 @@ After installing useful tools:
 script/update-brewfile
 ```
 
-Review the diff before committing.
-
+Check the generated changes before pushing.
