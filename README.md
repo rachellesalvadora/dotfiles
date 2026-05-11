@@ -9,6 +9,20 @@ paths, or copied proprietary tool config.
 
 ## Install
 
+On a new Mac, install Xcode Command Line Tools first:
+
+```sh
+xcode-select --install
+```
+
+Install Homebrew if it is not already installed:
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Then clone and run the setup:
+
 ```sh
 git clone https://github.com/rachellesalvadora/dotfiles.git ~/dotfiles
 cd ~/dotfiles
@@ -33,6 +47,13 @@ Use local files for private machine-specific settings:
 
 - `~/.zsh.local`
 - `~/.gitconfig.local`
+
+Create them from the examples:
+
+```sh
+cp ~/dotfiles/shell/local.example.zsh ~/.zsh.local
+cp ~/dotfiles/git/gitconfig.local.example ~/.gitconfig.local
+```
 
 Those files are intentionally not tracked.
 
