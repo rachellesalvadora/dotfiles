@@ -16,10 +16,10 @@ It intentionally does not include:
 
 `script/setup` symlinks `CLAUDE.md` to `~/.claude/CLAUDE.md`.
 
-Copy `settings.example.json` to `~/.claude/settings.json` (or
-`~/.claude/settings.local.json` for machine-specific overrides) and customise
-it privately. The example shows the structure for permissions and hooks - fill
-in the values that match your workflow.
+Copy `settings.example.json` to `~/.claude/settings.json` and customise it
+privately. For repo-local overrides, use `.claude/settings.local.json` inside
+each project directory. The example shows the structure for permissions and
+hooks - fill in the values that match your workflow.
 
 ## What to customise locally
 

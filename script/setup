@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 STAMP="$(date +%Y%m%d%H%M%S)"
+skipped=()
 
 confirm_overwrite() {
   local source="$1"
@@ -17,6 +18,12 @@ confirm_overwrite() {
   target_lines="$(wc -l < "$target" 2>/dev/null || echo 0)"
 
   if [ "$target_lines" -gt "$((source_lines * 2))" ] && [ "$target_lines" -gt 20 ]; then
+    if [ ! -t 0 ]; then
+      printf 'Skipped %s (%d lines, replacement has %d lines). Run interactively to confirm.\n' \
+        "$target" "$target_lines" "$source_lines" >&2
+      return 1
+    fi
+
     printf 'Warning: %s has %d lines but the replacement has %d lines.\n' \
       "$target" "$target_lines" "$source_lines" >&2
     printf 'The existing file will be backed up to %s.backup.%s\n' "$target" "$STAMP" >&2
@@ -36,6 +43,7 @@ backup_and_link() {
   mkdir -p "$(dirname "$target")"
 
   if ! confirm_overwrite "$source" "$target"; then
+    skipped+=("$target")
     return 0
   fi
 
@@ -60,5 +68,14 @@ backup_and_link "$ROOT/git/.gitconfig" "$HOME/.gitconfig"
 
 mkdir -p "$HOME/.claude"
 backup_and_link "$ROOT/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+
+if [ "${#skipped[@]}" -gt 0 ]; then
+  printf '\nWarning: %d file(s) were skipped:\n' "${#skipped[@]}" >&2
+  for f in "${skipped[@]}"; do
+    printf '  %s\n' "$f" >&2
+  done
+  printf 'Run script/doctor to check which links are missing.\n' >&2
+  exit 1
+fi
 
 echo "Dotfiles installed."
