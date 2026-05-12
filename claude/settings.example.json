@@ -1,5 +1,27 @@
 {
   "model": "default",
-  "voiceEnabled": false
-}
+  "voiceEnabled": false,
 
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Read(**/*)"
+    ],
+    "deny": [
+      "Bash(gh issue create:*)",
+      "Bash(gh repo create:*)"
+    ]
+  },
+
+  "hooks": {
+    "UserPromptSubmit": [],
+    "SessionStart": [],
+    "PreToolUse": [],
+    "PostToolUse": []
+  }
+}

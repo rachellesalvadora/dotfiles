@@ -7,6 +7,7 @@ brew "jq"
 brew "node"
 brew "ripgrep"
 brew "uv"
+brew "yarn"
 brew "zoxide"
 brew "zsh"
 
@@ -15,6 +16,6 @@ brew "shellcheck"
 brew "shfmt"
 
 # Apps
+cask "docker"
 cask "google-chrome"
 cask "visual-studio-code"
-
