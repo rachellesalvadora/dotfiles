@@ -1,6 +1,40 @@
-# Copy to ~/.gitconfig.local and fill in private identity values.
+# Copy to ~/.gitconfig.local and fill in private values.
+# This file is included by .gitconfig and is not tracked by git.
 
 [user]
 	name = Your Name
 	email = you@example.com
 
+# ---------------------------------------------------------------------------
+# Core settings
+# ---------------------------------------------------------------------------
+# [core]
+# 	excludesfile = ~/.gitignore_global
+
+# ---------------------------------------------------------------------------
+# Safe directories (useful inside containers)
+# ---------------------------------------------------------------------------
+# [safe]
+# 	directory = /app
+
+# ---------------------------------------------------------------------------
+# Diff / merge tools
+# ---------------------------------------------------------------------------
+# [diff]
+# 	tool = vscode
+# [difftool "vscode"]
+# 	cmd = code --wait --diff "$LOCAL" "$REMOTE"
+# [merge]
+# 	tool = vscode
+# [mergetool "vscode"]
+# 	cmd = code --wait "$MERGED"
+
+# ---------------------------------------------------------------------------
+# Signing (GPG or SSH)
+# ---------------------------------------------------------------------------
+# [commit]
+# 	gpgsign = true
+# [gpg]
+# 	format = ssh
+# [gpg "ssh"]
+# 	allowedSignersFile = ~/.ssh/allowed_signers

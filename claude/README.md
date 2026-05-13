@@ -12,6 +12,19 @@ It intentionally does not include:
 - MCP server configuration.
 - Employer/client-specific instructions.
 
-Copy `settings.example.json` to the appropriate local Claude settings path and
-customize it privately if needed.
+## Setup
 
+`script/setup` symlinks `CLAUDE.md` to `~/.claude/CLAUDE.md`.
+
+Copy `settings.example.json` to `~/.claude/settings.json` and customise it
+privately. For repo-local overrides, use `.claude/settings.local.json` inside
+each project directory. The example shows the structure for permissions and
+hooks - fill in the values that match your workflow.
+
+## What to customise locally
+
+- **Permissions**: add read/write paths for your project directories.
+- **Hooks**: add session-start, pre/post tool-use hooks for your workflow tools.
+- **Model**: change the default model if you have a preference.
+- **CLAUDE.md**: add project-specific instructions in each repo's own
+  `CLAUDE.md` rather than modifying the global one.
