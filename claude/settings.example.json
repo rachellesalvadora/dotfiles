@@ -8,13 +8,13 @@
       "Bash(git diff *)",
       "Bash(git log *)",
       "Bash(git show *)",
-      "Bash(gh pr view:*)",
-      "Bash(gh pr list:*)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr list *)",
       "Read(**/*)"
     ],
     "deny": [
-      "Bash(gh issue create:*)",
-      "Bash(gh repo create:*)"
+      "Bash(gh issue create *)",
+      "Bash(gh repo create *)"
     ]
   },
 
